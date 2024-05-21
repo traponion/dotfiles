@@ -33,6 +33,20 @@ then
     brew install neovim
 fi
 
+# gzip がインストールされていない場合はインストール
+if ! command -v gzip &> /dev/null
+then
+    echo "Installing gzip..."
+    brew install gzip
+fi
+
+# deno がインストールされていない場合はインストール
+if ! command -v deno &> /dev/null
+then
+    echo "Installing deno..."
+    brew install deno
+fi
+
 # nvimの設定ファイルがある場合は消去
 if [ -d $NVIM_CONFIG_PATH ]; then
     echo "Remove existing nvim config directory..."
@@ -47,5 +61,17 @@ mkdir -p $NVIM_CONFIG_PATH/lua
 echo "Creating nvim config symlink..."
 ln -s $DOTFILES_PATH/nvim/init.lua $NVIM_CONFIG_PATH/init.lua
 ln -s $DOTFILES_PATH/nvim/lua/plugins.lua $NVIM_CONFIG_PATH/lua/plugins.lua
+
+# .skkが存在する場合は消去
+if [ -e ~/.skk ]; then
+    echo "Remove existing .skk directory..."
+    rm -rf ~/.skk
+fi
+
+# ~/.skkに辞書ファイルをwgetでダウンロード
+echo "Downloading skk dictionary..."
+mkdir -p ~/.skk
+wget -O ~/.skk/SKK-JISYO.L.gz https://skk-dev.github.io/dict/SKK-JISYO.L.gz
+gzip -d ~/.skk/SKK-JISYO.L.gz   
 
 echo "Done!"

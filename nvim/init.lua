@@ -1,8 +1,17 @@
--- 行番号を表示
+-- 行番号の表示
 vim.opt.number = true
+vim.opt.relativenumber = true
 
--- クリップボードの共有を有効にする
-vim.opt.clipboard = "unnamedplus"
+-- クリップボードの共有
+vim.opt.clipboard = "unnamedplus" 
+
+-- インデントの設定
+vim.opt.autoindent = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 
 -- WSLの場合はwl-clipboardを使う
 if vim.fn.has("wsl") == 1 then
